@@ -1,0 +1,39 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Environments
+venv/
+.venv/
+env/
+.env
+
+# Models (Large files)
+*.h5
+*.pkl
+*.pb
+*.onnx
+models/
+
+# Datasets
+data/
+# Exception: Keep example/small data if needed, but usually data is ignored. 
+# For this submission, if data is small (~100 images), we might want to keep it?
+# The prompt said "Clean the repository... docs remain". 
+# Usually trained models are ignored.
+# I will ignore models/ but maybe the user wants to keep data?
+# I'll stick to the specific request: "Ignore trained model files (*.h5, *.pkl)"
+
+# Operating System
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+.ipynb_checkpoints/
+
+# Logs
+*.log
