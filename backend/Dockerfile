@@ -1,5 +1,5 @@
-# Use an official Python runtime as a parent image
-FROM python:3.9-slim
+# Use a full Python image to ensure build-essential and common libs are present
+FROM python:3.9
 
 # Set environment variables
 ENV PYTHONDONTWRITEBYTECODE 1
@@ -8,10 +8,8 @@ ENV PYTHONUNBUFFERED 1
 # Set the working directory in the container
 WORKDIR /app
 
-# Install system dependencies
+# Install system dependencies (Simplified and more robust)
 RUN apt-get update && apt-get install -y --no-install-recommends \
-    build-essential \
-    libgl1-mesa-glx \
     libglib2.0-0 \
     && rm -rf /var/lib/apt/lists/*
 
