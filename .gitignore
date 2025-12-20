@@ -16,6 +16,8 @@ env/
 *.pb
 *.onnx
 models/
+!backend/models/*.h5
+!backend/models/*.pkl
 
 # Datasets
 data/
