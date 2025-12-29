@@ -1,0 +1,33 @@
+{
+    "data_safety": {
+        "data_collection": [
+            {
+                "data_type": "Photos and Videos",
+                "specific_data": "Photos",
+                "collected": true,
+                "shared": false,
+                "purpose": [
+                    "App functionality"
+                ],
+                "ephemeral": true,
+                "optional": false
+            },
+            {
+                "data_type": "App Info and Performance",
+                "specific_data": "Crash logs",
+                "collected": true,
+                "shared": false,
+                "purpose": [
+                    "Analytics"
+                ],
+                "ephemeral": false,
+                "optional": true
+            }
+        ],
+        "security_practices": {
+            "data_encrypted_in_transit": true,
+            "data_deletion_request_mechanism": false
+        },
+        "privacy_policy_url": "https://www.mulberryleafai.com/privacy-policy"
+    }
+}

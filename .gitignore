@@ -10,6 +10,19 @@ venv/
 env/
 .env
 
+# Node
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Expo / React Native
+.expo/
+web-build/
+android/app/build/
+android/.gradle/
+ios/Pods/
+ios/build/
+
 # Models (Large files)
 *.h5
 *.pkl
@@ -21,12 +34,6 @@ models/
 
 # Datasets
 data/
-# Exception: Keep example/small data if needed, but usually data is ignored. 
-# For this submission, if data is small (~100 images), we might want to keep it?
-# The prompt said "Clean the repository... docs remain". 
-# Usually trained models are ignored.
-# I will ignore models/ but maybe the user wants to keep data?
-# I'll stick to the specific request: "Ignore trained model files (*.h5, *.pkl)"
 
 # Operating System
 .DS_Store

@@ -19,7 +19,7 @@ class MLService:
             return
             
         self.base_path = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-        self.models_path = os.path.join(self.base_path, "backend", "models")
+        self.models_path = os.path.join(self.base_path, "models")
         
         self.vision_model_path = os.path.join(self.models_path, "leaf_quality_model.h5")
         self.yield_model_path = os.path.join(self.models_path, "yield_model.pkl")

@@ -1,3 +1,5 @@
+from fastapi import APIRouter, HTTPException, File, UploadFile
+from pydantic import BaseModel
 from app.services.ml_service import ml_service
 from app.services.cache_service import cache_service
 from app.utils.image_utils import get_image_hash
