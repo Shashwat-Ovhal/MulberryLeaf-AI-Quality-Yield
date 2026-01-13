@@ -1,4 +1,5 @@
 from fastapi import FastAPI, Request
+from fastapi.middleware.cors import CORSMiddleware
 from app.api.endpoints import prediction
 import time
 import logging
@@ -14,6 +15,15 @@ app = FastAPI(
     title="MulberryLeaf AI Quality & Yield API",
     description="Backend API for predicting leaf quality and cocoon yield.",
     version="1.0.0"
+)
+
+# CORS Middleware
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 
 # Logging Middleware
