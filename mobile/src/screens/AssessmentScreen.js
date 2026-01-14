@@ -68,15 +68,30 @@ export default function AssessmentScreen({ navigation }) {
                     {result && !loading && (
                         <BlurView intensity={30} tint="dark" style={styles.resultCard}>
                             <Text style={[theme.typography.h2, { color: theme.colors.primary }]}>
-                                {result.predicted_class || "Healthy"}
+                                {result.class_name || "Healthy"}
                             </Text>
                             <Text style={theme.typography.body}>
                                 Confidence: {(result.confidence * 100).toFixed(1)}%
                             </Text>
                             <View style={styles.divider} />
                             <Text style={theme.typography.body}>
-                                Based on the visual analysis, this leaf appears to be {result.predicted_class ? result.predicted_class.toLowerCase() : "healthy"}.
+                                Based on the visual analysis, this leaf appears to be {result.class_name ? result.class_name.toLowerCase() : "healthy"}.
                             </Text>
+
+                            <TouchableOpacity
+                                style={[styles.actionButton, { marginTop: 15, backgroundColor: theme.colors.secondary }]}
+                                onPress={() => {
+                                    // Calculate score: 1.0 if Healthy (scaled by confidence), else low score
+                                    const isHealthy = (result.class_name || "Healthy").toLowerCase() === 'healthy';
+                                    const score = isHealthy ? result.confidence : (1 - result.confidence);
+                                    navigation.navigate('Yield', {
+                                        qualityScore: score.toFixed(2),
+                                        imageUri: imageUri
+                                    });
+                                }}
+                            >
+                                <Text style={styles.actionButtonText}>Predict Yield ➝</Text>
+                            </TouchableOpacity>
                         </BlurView>
                     )}
 

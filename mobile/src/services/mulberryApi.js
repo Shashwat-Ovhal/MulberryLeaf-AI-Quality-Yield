@@ -4,9 +4,8 @@ import Constants from 'expo-constants';
 // Get API URL from app.json extra or fallback to localhost
 const getApiUrl = () => {
     const apiUrl = Constants.expoConfig?.extra?.apiUrl;
-    // For Android Emulator, localhost is 10.0.2.2 usually, but user has 192.168.1.1 in app.json
-    // We will use the one configured in app.json
-    return apiUrl || 'http://192.168.1.1:8000';
+    // User's Wi-Fi IP address
+    return apiUrl || 'http://192.168.1.33:8000';
 };
 
 const BASE_URL = getApiUrl();
@@ -30,11 +29,11 @@ export const mulberryApi = {
     predictYield: async (avgQuality, temperature, humidity) => {
         try {
             const response = await api.post('/predict/yield', {
-                avg_quality_score: avgQuality,
+                avg_quality: avgQuality,
                 temperature: temperature,
                 humidity: humidity,
             });
-            return response.data.predicted_yield;
+            return response.data.estimated_yield;
         } catch (error) {
             console.error("Yield prediction error:", error);
             throw error;

@@ -1,16 +1,25 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, TextInput, KeyboardAvoidingView, Platform, ScrollView, Alert } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { BlurView } from 'expo-blur';
 import { theme } from '../theme/theme';
 import { mulberryApi } from '../services/mulberryApi';
 
-export default function YieldScreen({ navigation }) {
-    const [quality, setQuality] = useState('');
+export default function YieldScreen({ navigation, route }) {
+    const { qualityScore } = route.params || {};
+
+    const [quality, setQuality] = useState(qualityScore ? String(qualityScore) : '');
     const [temp, setTemp] = useState('');
     const [humidity, setHumidity] = useState('');
     const [loading, setLoading] = useState(false);
     const [prediction, setPrediction] = useState(null);
+
+    // Update quality if passed via params later (optional, but good if reusing screen)
+    React.useEffect(() => {
+        if (qualityScore) {
+            setQuality(String(qualityScore));
+        }
+    }, [qualityScore]);
 
     const handlePredict = async () => {
         if (!quality || !temp || !humidity) {

@@ -1,41 +1,56 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
-import { Camera } from 'expo-camera';
+import { CameraView, useCameraPermissions } from 'expo-camera';
 import { LinearGradient } from 'expo-linear-gradient';
 import { theme } from '../theme/theme';
 import { Ionicons } from '@expo/vector-icons'; // Assuming Ionicons is available in Expo by default or I'll use text
 
 export default function LeafScanner({ onPictureTaken, onClose }) {
-    const [hasPermission, setHasPermission] = useState(null);
-    const [cameraRef, setCameraRef] = useState(null);
+    const [permission, requestPermission] = useCameraPermissions();
+    const cameraRef = useRef(null);
 
     useEffect(() => {
-        (async () => {
-            const { status } = await Camera.requestCameraPermissionsAsync();
-            setHasPermission(status === 'granted');
-        })();
-    }, []);
+        if (!permission) {
+            requestPermission();
+        }
+    }, [permission]);
 
     const takePicture = async () => {
-        if (cameraRef) {
-            const photo = await cameraRef.takePictureAsync({
-                quality: 0.8,
-                base64: true,
-            });
-            onPictureTaken(photo);
+        if (cameraRef.current) {
+            try {
+                const photo = await cameraRef.current.takePictureAsync({
+                    quality: 0.8,
+                    base64: true,
+                });
+                onPictureTaken(photo);
+            } catch (error) {
+                console.error("Failed to take picture:", error);
+            }
         }
     };
 
-    if (hasPermission === null) {
+    if (!permission) {
+        // Camera permissions are still loading.
         return <View style={styles.container} />;
     }
-    if (hasPermission === false) {
-        return <Text style={{ color: theme.colors.text }}>No access to camera</Text>;
+
+    if (!permission.granted) {
+        // Camera permissions are not granted yet.
+        return (
+            <View style={[styles.container, { justifyContent: 'center', alignItems: 'center' }]}>
+                <Text style={{ color: theme.colors.text, textAlign: 'center', marginBottom: 20 }}>
+                    We need your permission to show the camera
+                </Text>
+                <TouchableOpacity onPress={requestPermission} style={styles.captureButton}>
+                    <Text style={{ color: 'white' }}>Grant Permission</Text>
+                </TouchableOpacity>
+            </View>
+        );
     }
 
     return (
         <View style={styles.container}>
-            <Camera style={styles.camera} ref={setCameraRef}>
+            <CameraView style={styles.camera} facing="back" ref={cameraRef}>
                 <LinearGradient
                     colors={['rgba(0,0,0,0.6)', 'transparent', 'rgba(0,0,0,0.6)']}
                     style={styles.overlay}
@@ -57,7 +72,7 @@ export default function LeafScanner({ onPictureTaken, onClose }) {
                         </TouchableOpacity>
                     </View>
                 </LinearGradient>
-            </Camera>
+            </CameraView>
         </View>
     );
 }
