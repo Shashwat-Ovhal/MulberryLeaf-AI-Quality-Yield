@@ -28,7 +28,7 @@ ios/build/
 *.pkl
 *.pb
 *.onnx
-models/
+!backend/models/
 !backend/models/*.h5
 !backend/models/*.pkl
 

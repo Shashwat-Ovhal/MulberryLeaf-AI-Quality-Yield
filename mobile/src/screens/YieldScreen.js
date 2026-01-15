@@ -101,8 +101,11 @@ export default function YieldScreen({ navigation, route }) {
 
                     {prediction !== null && (
                         <BlurView intensity={30} tint="dark" style={styles.resultCard}>
-                            <Text style={theme.typography.body}>Predicted Yield</Text>
+                            <Text style={theme.typography.body}>Predicted Cocoon Yield</Text>
                             <Text style={styles.resultValue}>{prediction.toFixed(2)} kg</Text>
+                            <Text style={[theme.typography.body, { fontSize: 12, marginTop: 4, opacity: 0.8 }]}>
+                                (per Standard Unit / 1 Acre)
+                            </Text>
                         </BlurView>
                     )}
 
