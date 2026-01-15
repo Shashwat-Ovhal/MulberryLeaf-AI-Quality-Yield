@@ -4,8 +4,8 @@ import Constants from 'expo-constants';
 // Get API URL from app.json extra or fallback to localhost
 const getApiUrl = () => {
     const apiUrl = Constants.expoConfig?.extra?.apiUrl;
-    // User's Wi-Fi IP address
-    return apiUrl || 'http://192.168.1.33:8000';
+    // Production Render Backend
+    return apiUrl || 'https://mulberry-backend-enx1.onrender.com';
 };
 
 const BASE_URL = getApiUrl();
